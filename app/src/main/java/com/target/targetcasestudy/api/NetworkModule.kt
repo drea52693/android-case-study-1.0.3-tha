@@ -21,6 +21,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): DealApi =
-        retrofit.create(DealApi::class.java)
+    fun provideApiService(retrofit: Retrofit): DealApiKtx =
+        retrofit.create(DealApiKtx::class.java)
 }

@@ -4,13 +4,13 @@ import retrofit2.Callback
 import javax.inject.Inject
 
 class DealsRepository @Inject constructor(
-    private val dealApi: DealApi
+    private val dealApiKtx: DealApiKtx
 ) {
-    fun retrieveDeals(callback: Callback<DealResponse>) {
-        dealApi.retrieveDeals().enqueue(callback)
+    suspend fun retrieveDeals(): DealResponse {
+        return dealApiKtx.retrieveDeals()
     }
 
-    fun retrieveDeal(dealId: String, callback: Callback<Deal>) {
-        dealApi.retrieveDeal(dealId).enqueue(callback)
+    suspend fun retrieveDeal(dealId: String) : Deal {
+        return dealApiKtx.retrieveDeal(dealId)
     }
 }
