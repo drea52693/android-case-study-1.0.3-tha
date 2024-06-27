@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.target.targetcasestudy.ui.DealListViewModel
+import com.target.targetcasestudy.ui.list.DealListViewModel
 import com.target.targetcasestudy.ui.details.ProductDetailsScreen
 import com.target.targetcasestudy.ui.details.ProductDetailsViewModel
 import com.target.targetcasestudy.ui.list.DealListScreen

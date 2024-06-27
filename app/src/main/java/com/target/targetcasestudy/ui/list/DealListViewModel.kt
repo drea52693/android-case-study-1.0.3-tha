@@ -1,7 +1,7 @@
 package com.target.targetcasestudy.ui.list
 
-
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.target.targetcasestudy.api.Deal
 import com.target.targetcasestudy.api.DealsRepository
@@ -14,31 +14,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DealListViewModel @Inject constructor(
+    application: Application,
     private val dealsRepository: DealsRepository,
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     private val _dealListUiStateFlow = MutableStateFlow<List<Deal>>(emptyList())
     val dealListUiStateFlow = _dealListUiStateFlow.asStateFlow()
 
-    private val _dealUiStateFlow = MutableStateFlow<Deal?>(null)
-    val dealUiStateFlow = _dealUiStateFlow.asStateFlow()
-
     init {
-        viewModelScope.launch {
-            //fetchDeals()
-        }
+        fetchDeals()
     }
 
-    suspend fun fetchDeals() {
-        _dealListUiStateFlow.getAndUpdate {
-            dealsRepository.retrieveDeals().products
-        }
-    }
-
-    fun fetchDeal(dealId: String) {
+    private fun fetchDeals() {
         viewModelScope.launch {
-            _dealUiStateFlow.getAndUpdate {
-                dealsRepository.retrieveDeal(dealId)
+            runCatching {
+                dealsRepository.retrieveDeals()
+            }.onFailure {
+                // Handle error
+            }.onSuccess { deals ->
+                _dealListUiStateFlow.getAndUpdate { deals.products }
             }
         }
     }
