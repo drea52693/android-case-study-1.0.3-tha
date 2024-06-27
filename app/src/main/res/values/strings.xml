@@ -1,6 +1,16 @@
 <resources>
-  <string name="app_name">TargetCaseStudy</string>
+    <string name="app_name">TargetCaseStudy</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="in_aisle">in aisle</string>
+    <string name="reg">reg.</string>
+    <string name="default_regular_price">defaultRegularPrice</string>
+    <string name="default_sale_price">defaultSalePrice</string>
+    <string name="back_arrow_button_content_description">Back Arrow Button</string>
+    <string name="details">Details</string>
+    <string name="product_image_content_description">Product Image</string>
+    <string name="product_details">Product details</string>
+    <string name="default_product_description">defaultProductDescription</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>
