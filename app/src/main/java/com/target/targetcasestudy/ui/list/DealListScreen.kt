@@ -76,31 +76,6 @@ fun DealListScreen(dealList: List<Deal>, navController: NavController, dealClick
         }
     }
 }
-/*@Composable
-fun DealListScreen(dealList: List<Deal>, dealDescription: String?, dealClicked: (String) -> Unit) {
-    LazyColumn(
-        modifier = Modifier
-            .padding(16.dp)
-            .background(MyCustomWhite)
-            .fillMaxWidth()
-    ) {
-        items(dealList) { deal ->
-            val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "list") {
-                composable("list") { DealItem(deal, navController, dealClicked) }
-                composable(
-                    "details/{item}",
-                    arguments = listOf(navArgument("item") { type = NavType.StringType })
-                ) { backStackEntry ->
-                    val item = backStackEntry.arguments?.getString("item")
-                    item?.let { ProductDetailsScreen(deal, dealDescription, navController) }
-                }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Divider(color = MyCustomLightGray, thickness = 1.dp)
-        }
-    }
-}*/
 
 @Composable
 fun DealItem(uiState: Deal, navController: NavController?, dealClicked: (String) -> Unit) {
