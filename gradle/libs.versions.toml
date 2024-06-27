@@ -39,6 +39,7 @@ gson                     = {module = "com.google.code.gson:gson", version.ref = 
 glide                    = {module = "com.github.bumptech.glide:glide", version.ref = "glide"}
 hiltAndroid              = {module = "com.google.dagger:hilt-android", version.ref = "hilt"}
 hiltCompiler             = {module = "com.google.dagger:hilt-compiler", version.ref = "hilt"}
+hiltComposeNavigation    = {module = "androidx.hilt:hilt-navigation-compose", version = "1.0.0"}
 jackson                  = "com.fasterxml.jackson.module:jackson-module-kotlin:2.15.4"
 kotlin                   = {module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin"}
 moshi                    = {module = "com.squareup.moshi:moshi", version.ref = "moshi"}

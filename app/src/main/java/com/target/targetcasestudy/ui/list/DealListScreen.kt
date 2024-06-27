@@ -26,14 +26,7 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.target.targetcasestudy.api.Deal
-import androidx.navigation.NavController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.target.targetcasestudy.R
-import com.target.targetcasestudy.ui.details.ProductDetailsScreen
 import com.target.targetcasestudy.ui.theme.MyCustomBlack
 import com.target.targetcasestudy.ui.theme.MyCustomDarkGray
 import com.target.targetcasestudy.ui.theme.MyCustomGray
@@ -43,34 +36,16 @@ import com.target.targetcasestudy.ui.theme.MyCustomRed
 import com.target.targetcasestudy.ui.theme.MyCustomWhite
 import com.target.targetcasestudy.ui.theme.robotoFontFamily
 
-
 @Composable
-fun MainScreen(dealList: List<Deal>, dealDescription: String?, dealClicked: (String) -> Unit) {
-    val navController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = "list") {
-        composable("list") { DealListScreen(dealList, navController, dealClicked) }
-        composable(
-            "details/{dealId}",
-            arguments = listOf(navArgument("dealId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val dealId = backStackEntry.arguments?.getString("dealId")
-            val deal = dealList.find { it.id.toString() == dealId }
-            deal?.let { ProductDetailsScreen(it, dealDescription, navController) }
-        }
-    }
-}
-
-@Composable
-fun DealListScreen(dealList: List<Deal>, navController: NavController, dealClicked: (String) -> Unit) {
+fun DealListScreen(dealList: List<Deal>, dealClicked: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(12.dp)
             .background(MyCustomWhite)
             .fillMaxWidth()
     ) {
         items(dealList) { deal ->
-            DealItem(deal, navController, dealClicked)
+            DealItem(deal, dealClicked)
             Spacer(modifier = Modifier.height(16.dp))
             Divider(color = MyCustomLightGray, thickness = 1.dp)
         }
@@ -78,16 +53,13 @@ fun DealListScreen(dealList: List<Deal>, navController: NavController, dealClick
 }
 
 @Composable
-fun DealItem(uiState: Deal, navController: NavController?, dealClicked: (String) -> Unit) {
+fun DealItem(uiState: Deal, onDealItemClicked: (String) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-
-                dealClicked(uiState.id.toString())
-                navController?.navigate("details/${uiState.id}")
-            }
+            .clickable { onDealItemClicked(uiState.id.toString()) }
+            .padding(top = 16.dp, bottom = 8.dp)
     ) {
         LoadImageFromUrl(uiState.imageUrl)
         Spacer(modifier = Modifier.width(16.dp))

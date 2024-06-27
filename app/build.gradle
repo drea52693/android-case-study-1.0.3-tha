@@ -58,6 +58,8 @@ dependencies {
   implementation libs.okHttp
   implementation libs.okHttpLogging
 
+  implementation libs.hiltComposeNavigation
+
   // JSON Parsing
   implementation libs.gson
   implementation libs.gsonConverter
