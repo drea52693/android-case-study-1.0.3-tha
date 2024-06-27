@@ -4,24 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
+import androidx.fragment.app.viewModels
 
-import com.target.targetcasestudy.R
-
-
+@AndroidEntryPoint
 class DealListFragment : Fragment() {
 
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    val view =  inflater.inflate(R.layout.fragment_deal_list, container, false)
+    private val dealListViewModel: DealListViewModel by viewModels()
 
-    view.findViewById<RecyclerView>(R.id.recycler_view).layoutManager = LinearLayoutManager(requireContext())
-    view.findViewById<RecyclerView>(R.id.recycler_view).adapter = DealItemAdapter()
-
-    return view
-  }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dealListViewModel.fetchDeals()
+        return ComposeView(requireContext()).apply {
+            setContent {
+                DealListScreen(
+                    dealListViewModel.dealListUiStateFlow.collectAsState().value,
+                    dealListViewModel.dealUiStateFlow.collectAsState().value?.description
+                ) {
+                    (dealListViewModel::fetchDeal)(it)
+                }
+            }
+        }
+    }
 }
