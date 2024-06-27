@@ -42,25 +42,33 @@ dependencies {
   implementation libs.androidXAppCompat
   implementation libs.androidXConstraintLayout
   implementation libs.androidXRecyclerView
+  implementation libs.androidXActivity
+  implementation libs.navigation.fragment.ktx
 
   //Compose
   implementation platform(libs.composeBom)
   implementation libs.composeRuntime
+  implementation libs.composeMaterial
+  implementation libs.ui.tooling.preview.android
 
   implementation libs.retrofit
   implementation libs.retrofitRx2Adapter
   implementation libs.okHttp
+  implementation libs.okHttpLogging
 
   // JSON Parsing
   implementation libs.gson
+  implementation libs.gsonConverter
 
   implementation libs.moshi
+  implementation libs.composeNavigation
   ksp libs.moshiKotlinCodeGen
 
   implementation libs.jackson
 
   // Image Loading
   implementation libs.glide
+  implementation libs.coil
 
   implementation libs.hiltAndroid
   ksp libs.hiltCompiler
