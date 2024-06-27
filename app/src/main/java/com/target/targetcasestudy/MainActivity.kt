@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
 import com.target.targetcasestudy.ui.list.DealListScreen
 import com.target.targetcasestudy.ui.list.DealListViewModel
+import com.target.targetcasestudy.ui.list.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             setContent {
                 val uiState by dealListViewModel.dealListUiStateFlow.collectAsState()
                 val listUiState by dealListViewModel.dealUiStateFlow.collectAsState()
-                DealListScreen(
+                MainScreen(
                     uiState,
                     listUiState?.description
                 ) {

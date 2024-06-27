@@ -43,7 +43,40 @@ import com.target.targetcasestudy.ui.theme.MyCustomRed
 import com.target.targetcasestudy.ui.theme.MyCustomWhite
 import com.target.targetcasestudy.ui.theme.robotoFontFamily
 
+
 @Composable
+fun MainScreen(dealList: List<Deal>, dealDescription: String?, dealClicked: (String) -> Unit) {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "list") {
+        composable("list") { DealListScreen(dealList, navController, dealClicked) }
+        composable(
+            "details/{dealId}",
+            arguments = listOf(navArgument("dealId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val dealId = backStackEntry.arguments?.getString("dealId")
+            val deal = dealList.find { it.id.toString() == dealId }
+            deal?.let { ProductDetailsScreen(it, dealDescription, navController) }
+        }
+    }
+}
+
+@Composable
+fun DealListScreen(dealList: List<Deal>, navController: NavController, dealClicked: (String) -> Unit) {
+    LazyColumn(
+        modifier = Modifier
+            .padding(16.dp)
+            .background(MyCustomWhite)
+            .fillMaxWidth()
+    ) {
+        items(dealList) { deal ->
+            DealItem(deal, navController, dealClicked)
+            Spacer(modifier = Modifier.height(16.dp))
+            Divider(color = MyCustomLightGray, thickness = 1.dp)
+        }
+    }
+}
+/*@Composable
 fun DealListScreen(dealList: List<Deal>, dealDescription: String?, dealClicked: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier
@@ -67,7 +100,7 @@ fun DealListScreen(dealList: List<Deal>, dealDescription: String?, dealClicked: 
             Divider(color = MyCustomLightGray, thickness = 1.dp)
         }
     }
-}
+}*/
 
 @Composable
 fun DealItem(uiState: Deal, navController: NavController?, dealClicked: (String) -> Unit) {
