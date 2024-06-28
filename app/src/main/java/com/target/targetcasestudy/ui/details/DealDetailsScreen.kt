@@ -154,7 +154,6 @@ fun ProductDetails(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .height(44.dp),
-                //.padding(8.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = MyCustomLightRed),
         ) {
             Text(
