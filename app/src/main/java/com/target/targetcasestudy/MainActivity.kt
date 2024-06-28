@@ -21,18 +21,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: DealListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             MaterialTheme {
-                val dealList by viewModel.dealListUiStateFlow.collectAsState()
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "list") {
                     composable("list") {
-                        DealListScreen(dealList) {
+                        val viewModel = hiltViewModel<DealListViewModel>()
+                        DealListScreen(viewModel) {
                             navController.navigate("details/$it")
                         }
                     }

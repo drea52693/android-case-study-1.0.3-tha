@@ -15,12 +15,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.target.targetcasestudy.api.Deal
 import com.target.targetcasestudy.R
@@ -34,14 +37,16 @@ import com.target.targetcasestudy.ui.theme.MyCustomWhite
 import com.target.targetcasestudy.ui.theme.robotoFontFamily
 
 @Composable
-fun DealListScreen(dealList: List<Deal>, dealClicked: (String) -> Unit) {
+fun DealListScreen(viewModel: DealListViewModel, dealClicked: (String) -> Unit) {
+    val uiState by viewModel.dealListUiStateFlow.collectAsState()
+
     LazyColumn(
         modifier = Modifier
             .padding(12.dp)
             .background(MyCustomWhite)
             .fillMaxWidth()
     ) {
-        items(dealList) { deal ->
+        items(uiState) { deal ->
             DealItem(deal, dealClicked)
             Spacer(modifier = Modifier.height(16.dp))
             Divider(color = MyCustomLightGray, thickness = 1.dp)

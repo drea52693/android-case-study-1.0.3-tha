@@ -30,7 +30,6 @@ import com.target.targetcasestudy.ui.theme.MyCustomRed
 import com.target.targetcasestudy.ui.theme.MyCustomWhite
 import com.target.targetcasestudy.ui.theme.robotoFontFamily
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ProductDetailsScreen(
     viewModel: ProductDetailsViewModel,
