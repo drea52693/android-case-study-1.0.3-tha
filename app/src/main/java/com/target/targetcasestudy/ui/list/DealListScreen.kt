@@ -1,6 +1,5 @@
 package com.target.targetcasestudy.ui.list
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,13 +17,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
 import com.target.targetcasestudy.api.Deal
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.ui.theme.MyCustomBlack
@@ -61,12 +58,17 @@ fun DealItem(uiState: Deal, onDealItemClicked: (String) -> Unit) {
             .clickable { onDealItemClicked(uiState.id.toString()) }
             .padding(top = 16.dp, bottom = 8.dp)
     ) {
-        LoadImageFromUrl(uiState.imageUrl)
+        AsyncImage(
+            uiState.imageUrl,
+            contentDescription = stringResource(id = R.string.product_image_content_description),
+            modifier = Modifier.size(140.dp),
+        )
         Spacer(modifier = Modifier.width(16.dp))
         Column {
             Row {
                 Text(
-                    text = uiState.salePrice?.displayString ?: stringResource(id = R.string.default_sale_price),
+                    text = uiState.salePrice?.displayString
+                        ?: stringResource(id = R.string.default_sale_price),
                     fontFamily = robotoFontFamily,
                     fontSize = 21.sp,
                     fontWeight = FontWeight.Bold,
@@ -117,15 +119,4 @@ fun DealItem(uiState: Deal, onDealItemClicked: (String) -> Unit) {
             }
         }
     }
-}
-
-@OptIn(ExperimentalCoilApi::class)
-@Composable
-fun LoadImageFromUrl(imageUrl: String) {
-    val painter: Painter = rememberImagePainter(imageUrl)
-    Image(
-        painter = painter,
-        contentDescription = stringResource(id = R.string.product_image_content_description),
-        modifier = Modifier.size(140.dp),
-    )
 }
