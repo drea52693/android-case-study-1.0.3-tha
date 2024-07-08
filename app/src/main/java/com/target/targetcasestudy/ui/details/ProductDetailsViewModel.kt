@@ -7,6 +7,8 @@ import com.target.targetcasestudy.api.Deal
 import com.target.targetcasestudy.api.DealsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,14 +16,15 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailsViewModel @Inject constructor(savedStateHandle: SavedStateHandle, repository: DealsRepository): ViewModel() {
 
-    val productDetailsUiState: MutableStateFlow<Deal?> = MutableStateFlow(null)
+    private val _productDetailsUiState = MutableStateFlow<Deal?>(null)
+    val productDetailsUiState = _productDetailsUiState.asStateFlow()
 
     init {
         val id = savedStateHandle.get<String>("item")
         id?.let {
             viewModelScope.launch {
                 val deal = repository.retrieveDeal(id)
-                productDetailsUiState.update { deal }
+                _productDetailsUiState.getAndUpdate { deal }
             }
         } ?: error("Deal ID must be provided.")
     }
