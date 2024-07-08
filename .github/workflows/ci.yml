@@ -43,7 +43,7 @@ jobs:
     - name: Deploy to Firebase App Distribution
       run: |
         firebase appdistribution:distribute app/build/outputs/apk/debug/app-debug.apk \
-          --app <your_firebase_app_id> \
+          --app <target-assessment> \
           --groups testers
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
